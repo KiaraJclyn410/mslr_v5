@@ -4,10 +4,7 @@
 #include "pros/rotation.hpp"
 #include <numbers>
 #include <list>
-#include "classes.cpp"
-
-double pi = std::numbers::pi;
-
+#include "helpers.hpp"
 
 void tracking_loop (){
     //get the starting value for this cycle
@@ -35,7 +32,7 @@ void tracking_loop (){
         double normalized_angle = fmod(angle, 360.0);
 
         //turn to radians
-        double angle_in_radians = normalized_angle * (pi / 180.0);
+        double angle_in_radians = degree_to_radian(normalized_angle);
 
         //find the arc radius
         double vertical_arc_radius = delta_vertical/angle_in_radians + vertical_wheel_to_center_distance;//+ or -
@@ -61,10 +58,13 @@ void tracking_loop (){
 
         //rotate the anlge to the robot_global
         double offset_angle = (start_angle + angle)/2;
+
         //convert to radians
-        double offset_angle_in_radians = offset_angle * (pi / 180.0);
+        double offset_angle_in_radians = degree_to_radian(offset_angle);
+
         //add the offset angle to the polar angle
         double robot_global_angle = polar_angle + offset_angle;//+or-
+
         //let's convert it to cartesian
         vector robot_global_vector_polar;
         robot_global_vector_polar.set_polar(robot_global_angle, magnitude);
