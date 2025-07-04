@@ -7,7 +7,14 @@
 #include "helpers.hpp"
 
 void tracking_loop (){
-    //get the starting value for this cycle
+    //get the starting values for this cycle
+    pros::Rotation horizontal_rotation(1); // replace with actual port
+    pros::Rotation vertical_rotation(2); // replace with actual port
+    pros::IMU imu_sensor(3); // replace with actual port
+    horizontal_wheel_to_center_distance = 1; // modify for the robot's value
+    vertical_wheel_to_center_distance = 1; // modify for the robot's value
+    robot_to_field_x_scaling = 0; //adjust later
+    robot_to_field_y_scaling = 0; //adjust later
     start_horizontal = horizontal_rotation.get_position();
     start_vertical = vertical_rotation.get_position();
     double start_angle = imu_sensor.get_rotation();
@@ -80,7 +87,8 @@ void tracking_loop (){
         robot_global_vector_cartesian.set_coords(robot_global_x, robot_global_y);
 
         //shift to the field_global plane
-        std::pair<double, double> field_global_vector_= robot_global_vector_cartesian.field_to_robot_global();
+        std::pair<double, double> field_global_vector_= field_to_robot_global(robot_global_vector_cartesian);
         double field_global_x = field_global_vector_.first;
         double field_global_y = field_global_vector_.second;
     }
+};
