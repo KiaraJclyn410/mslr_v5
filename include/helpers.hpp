@@ -1,3 +1,5 @@
+#include <iostream>
+#include <numbers>
 
 class vector{
     public:
@@ -12,6 +14,8 @@ class vector{
 
     std::pair<double, double> cartesian_to_polar() const;
     std::pair<double, double> polar_to_cartesian(double magnitude, double polar_angle) const;
+
+    friend std::ostream& operator<<(std::ostream& os, const vector& v);
 };
 
 double degree_to_radian(double degree);

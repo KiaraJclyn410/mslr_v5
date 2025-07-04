@@ -2,6 +2,8 @@
 #include <utility>
 #include "tracking_system.hpp"
 #include "helpers.hpp"
+#include <numbers>
+#include <iostream>
 
 double pi = std::numbers::pi;
 
@@ -30,6 +32,11 @@ double pi = std::numbers::pi;
         double x_coord = magnitude * cos(polar_angle);
         double y_coord = magnitude * sin(polar_angle);
         return std::make_pair(x_coord, y_coord);
+    }
+    
+    std::ostream& operator<<(std::ostream& os, const vector& v) {
+    os << "(" << v.x << ", " << v.y << ")";
+    return os;
     }
 
 //degree to radian conversion method
